@@ -4,9 +4,6 @@
 #include<cstdlib>
 #include<ctime>
 
-// Ovo je jako glup zadatak, jer za ovoliko milijuna usporedbi i najmodernijim procesorima treba po nekoliko minuta.
-// Ugl smanjio sam granicu s 100000/999999 na 1000/9999, tako da se vide rezultati.
-
 using namespace std;
 
 fstream datoteka;
@@ -32,7 +29,6 @@ int main(){
 		cin >> N;
 	} while (N<=1000 || N >= 9999);
 	
-	//////////////////////////////////////////////////////////////
 	cout << "Upisujem...";
 	
 	datoteka.open("koordinate.dat", ios::binary | ios::out | ios::trunc);
@@ -47,19 +43,16 @@ int main(){
 	
 	cout << " upisano!" << endl;
 	
-	//////////////////////////////////////////////////////////////
-
-	//////////////////////////////////////////////////////////////
 	cout << "Citanje...";
 	datoteka.open("koordinate.dat", ios::binary | ios::in);
-	tocka *polje = new tocka [N]; // èitat æemo iz datoteke samo jednom (u ovo polje), a onda tražiti min/max iz ovog polja
+	tocka *polje = new tocka [N]; 
 	for (int i = 0; i < N; i++)
 	{
 		datoteka.read((char *)&polje[i], sizeof(tocka));		
 	}
 	cout << " procitano!" << endl;
 	
-	for (int i = 0; i < N; i++) polje[i].x;	// Iz nekog razloga program bez ovoga ne želi obaviti pretragu kak spada... Ne pitaj previše...
+	for (int i = 0; i < N; i++) polje[i].x;	
 	
 	int min_udalj;
 	int max_udalj;
@@ -71,12 +64,11 @@ int main(){
 	{
 		if (i%10==0)
 		{
-			// prikažimo postotak pretrage, samo da znamo koliko još kave možemo popiti do rezultata (pogotovo ako dopustimo da je N preko 100,000)
-			cout << "\nPretraga...\n" << (100.00/(N))*i << "%\n";	// dost primitivno, ali barem služi svrsi ('system("cls")' je program pretvorio u Vietnam flashback)
+			cout << "\nPretraga...\n" << (100.00/(N))*i << "%\n";
 		}
 		for (int c = 0; c < i; c++)
 		{
-			if (polje[i].x == polje[c].x && polje[i].y == polje[c].y) continue; // ne želimo usporeðivati iste toèke!
+			if (polje[i].x == polje[c].x && polje[i].y == polje[c].y) continue;
 			
 			if (i == 0 && c == 0)
 			{
@@ -86,7 +78,7 @@ int main(){
 				max_tocka1 = polje[i];
 				max_tocka2 = polje[c];
 				max_udalj = udaljenost(polje[i], polje[c]);
-				continue; // prvi put treba postaviti minimalnu i maksimalnu udaljenost, a tek onda možemo dalje usporeðivati
+				continue; 
 			}
 			if (udaljenost(polje[i], polje[c]) < min_udalj)
 			{
@@ -110,7 +102,6 @@ int main(){
 		 << "X1: " << max_tocka1.x << "; Y1: " << max_tocka1.y << endl
 		 << "X2: " << max_tocka2.x << "; Y2: " << max_tocka2.y << endl;
 		 
-	//////////////////////////////////////////////////////////////
 	
 	cout<<endl;
 	system("pause");
